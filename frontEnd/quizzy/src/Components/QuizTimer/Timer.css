@@ -1,0 +1,16 @@
+.Timer-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 1vh;
+    right: 1vw;
+    height: 65px;
+    width: 65px;
+    color: #015d53;
+    border-radius: 50%;
+    background-color:#015d5352;
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 600;
+}

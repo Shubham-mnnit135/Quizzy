@@ -1,0 +1,146 @@
+.question-container{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: auto;
+}
+
+.question-box{
+    width: 95%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: justify;
+    font-size: 20px;
+    font-weight: 480;
+    padding: 5px;
+}
+.options-box{
+    width: 95%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.option-box{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5px;
+    gap:10px;
+}
+.input-button-box{
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    >input{
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border:none;
+        border-radius: 50%;
+        background-color: rgb(130, 239, 177);
+    }
+    >input:checked {
+        background-color: #015D53; 
+    }
+}
+.input-checkbox-button{
+    margin-top: 3px;
+    height: 30px;
+   >input{
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    border-radius: 50%;
+    background-color: rgb(130, 239, 177);
+   }
+   >input:checked {
+    background-color: #015D53; 
+   }
+}
+.input-ans-box{
+    height: 30px;
+    font-size: 20px;
+    font-weight: 480;
+    display: flex;
+    flex-direction: row;
+    >input{
+        border: none;
+        outline: none;
+        font-size: 20px;
+        font-weight: 480;
+        width: 100%;
+        border-bottom: 2px solid #015D53;
+    }
+}
+
+.label-box{
+    width:95%;
+    min-height: 30px;
+    max-height:fit-content; 
+    text-align: justify;
+    >label{
+        font-size: 20px;
+        font-weight: 480;
+    }
+}
+
+@media  screen and (min-width:768px) {
+    .question-box{
+        width: 90%;
+        font-size: 25px;
+        font-weight: 480;
+        padding: 10px;
+    }
+    .options-box{
+        width: 90%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .option-box{
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 10px;
+        gap:10px;
+        
+    }
+    .input-button-box{
+        >input{
+            width: 25px;
+            height: 25px;
+        }
+    }
+    .input-checkbox-button{
+        height: 30px;
+        margin-top: 4px;
+        >input{
+            height: 25px;
+            width:25px;
+        }
+    }
+    .label-box{
+        min-height: 40px;
+       
+        >label{
+            font-size: 25px;
+        }
+    }
+    
+}

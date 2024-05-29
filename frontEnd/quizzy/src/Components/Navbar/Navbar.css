@@ -1,0 +1,130 @@
+*{
+    box-sizing: border-box;
+}
+.nav{
+    height: 10vh;
+    min-height: 55px;
+    width: 100vw;
+    background-color: #09cf86;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    font-size: 25px;
+    font-weight: 700;
+    /* color: #6e6e70; */
+    color:#015D53;
+    cursor: pointer;
+    margin-left: 10px;
+    
+}
+
+.logo a{
+    text-decoration: none;
+    color: #015D53;
+}
+.menu{
+    font-size: 30px;
+    color:#015D53;
+    margin-right: 10px;
+}
+.navList{
+    display:none;
+}
+
+.dropdown{
+    height: 200px;
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    z-index: 3;
+    position:absolute;
+    top:37px;
+    right: 37px;
+    background-color: #FFE77AFF;
+    >a{
+        width: 100%;
+        flex: 1;
+        text-decoration: none;
+        color: #015D53;
+        font-size: 15px;
+        font-weight: 550;
+        padding-left: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+}
+.logoutIcon{
+    height: 40px;
+    width: 40px;
+}
+
+.dropdown .btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #015D53;
+    color:#FFE77AFF;
+    border-top: 3.1px solid #fff;
+}
+@media screen and (min-width:768px) {
+    .menu{
+        display: none;
+    }
+    .logo{
+        margin-left: 30px;
+    }
+    .dropdown{
+        display: none;
+    }
+    .menu{
+        margin-right: 30px;
+    }
+    .navList{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; 
+        align-items: center;
+        gap:2rem;
+        margin-right: 30px;
+    }
+    .nav-list-item{
+        list-style: none;
+        font-size: 20px;
+        font-weight: 550;
+    }
+    
+    .navList a{
+        text-decoration: none;
+        color: #015D53;
+    }
+    .navList a:hover{
+        text-decoration: none;
+        color: #FFE77AFF;
+    }
+    .navList .btn{
+        height: 30px;
+        color:rgb(249, 246, 246); 
+        background-color: #015D53; 
+        border-radius: 40px;
+        padding: 5px;
+    } 
+    
+    .navList .btn:hover {
+        color:white;
+        box-shadow: 2px 2px 4px rgba(2, 30, 5, 0.7);
+        /* transform:scale(3.5, 3.5); */
+    }
+    
+    .profileIcon{
+        font-size: 30px;
+        color:#015D53
+    }
+}

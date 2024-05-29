@@ -1,0 +1,16 @@
+.footer {
+    height: 10vh;
+    min-height: 50px;
+    width: 100vw;
+    background-color:  #09cf86;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 2rem;
+}
+
+.icons{
+    font-size: 2rem;
+    color: #015D53;
+    cursor: pointer;
+}

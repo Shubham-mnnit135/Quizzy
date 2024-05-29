@@ -1,0 +1,38 @@
+.topiccard{
+    height: 100%;
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#09cf86 ;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.topic{
+    font-size: 15px;
+    font-weight: 500;
+    color : #015D53;
+    text-transform:capitalize ;
+    white-space: nowrap;
+}
+
+@media screen and (min-width:768px) {
+    .topiccard{
+        height: 30px;
+        width: 75%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color:#09cf86 ;
+        margin: 3px;
+        border-radius: 40px;
+    }
+    
+    .topic{
+        font-size: 19px;
+        font-weight: 500;
+        color : #015D53;
+        text-transform:capitalize ;
+    }
+}

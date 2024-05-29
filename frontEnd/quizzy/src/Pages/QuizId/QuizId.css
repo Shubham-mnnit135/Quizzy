@@ -1,0 +1,29 @@
+.quiz_id_page{
+    height: 80vh;
+    width: 100vW;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Quiz-heading{
+    height: 100px;
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFE77AFF;
+    color:#015D53;
+    font-size: 35px;
+}
+
+.Quiz-ID{
+    height: 100px;
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFE77AFF;
+    background-color:#015D53;
+    font-size: 35px;
+}

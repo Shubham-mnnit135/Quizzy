@@ -1,0 +1,39 @@
+[
+    {
+      "topic": "javascript",
+      "question": "which keyword is used to declare a variable in JavaScript?",
+      "options": ["var", "int", "string", "declare"],
+      "answer": "var",
+      "createrID": "656ad2cc21ae37d0ebc4e7df",
+      "createdAt": "2023-12-02T11:56:30.104Z",
+      "updatedAt": "2023-12-02T11:56:30.104Z"
+    },
+    {
+      "topic": "c",
+      "question": "what does 'printf' do in the c programming language?",
+      "options": ["reads input", "prints output", "defines a function", "performs mathematical operations"],
+      "answer": "prints output",
+      "createrID": "656ad2cc21ae37d0ebc4e7df",
+      "createdAt": "2023-12-02T11:56:30.104Z",
+      "updatedAt": "2023-12-02T11:56:30.104Z"
+    },
+    {
+      "topic": "ruby",
+      "question": "which keyword is used to define a method in ruby?",
+      "options": ["function", "def", "method", "define"],
+      "answer": "def",
+      "createrID": "656ad2cc21ae37d0ebc4e7df",
+      "createdAt": "2023-12-02T11:56:30.104Z",
+      "updatedAt": "2023-12-02T11:56:30.104Z"
+    },
+    {
+      "topic": "go",
+      "question": "what is the name of the tool used to build go executables?",
+      "options": ["go make", "go build", "makego", "buildgo"],
+      "answer": "go build",
+      "createrID": "656ad2cc21ae37d0ebc4e7df",
+      "createdAt": "2023-12-02T11:56:30.104Z",
+      "updatedAt": "2023-12-02T11:56:30.104Z"
+    }
+  ]
+  
