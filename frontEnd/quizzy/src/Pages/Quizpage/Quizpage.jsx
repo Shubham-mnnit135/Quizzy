@@ -1,14 +1,11 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, } from 'react-router-dom'
 import "./Quizpage.css"
 import QuizQuestionCard from '../../Components/QuizQuestionCard/QuizQuestionCard';
 import { userContext } from '../../Context/Context';
 import { toast } from 'react-toastify';
 import Timer from '../../Components/QuizTimer/Timer';
-
-
-
 
 
 const Quizpage = () => {
@@ -22,9 +19,8 @@ const Quizpage = () => {
   const [negMarksPerQues, setNegMarksPerQues] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const {account} = useContext(userContext);
-  
+   
   const navigate = useNavigate();
-
   const token = localStorage.getItem('token'); 
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
   
@@ -32,6 +28,8 @@ const Quizpage = () => {
   const time = new Date();
   time.setSeconds(time.getSeconds() + duration*60);
   //
+  
+  
   useEffect(()=>{
      const fetch = async() =>{
         try {
@@ -43,6 +41,7 @@ const Quizpage = () => {
             setDuration(res?.data?.newQuiz?.duration);
             setMarksPerQues(parseFloat(res?.data?.newQuiz?.marks));
             setNegMarksPerQues(parseFloat(res?.data?.newQuiz?.negMarks));
+            
         } catch (error) {
           if(error.response && error.response.status===400)
               toast.error(error.response.data.message);
@@ -74,6 +73,8 @@ const Quizpage = () => {
               toast.error(error?.response?.data?.message);
       else
               toast.error(error.message);
+
+      navigate("/protected/home");
     }
   }
 
@@ -82,17 +83,19 @@ const Quizpage = () => {
       try {
         alert('Time is up! Submitting your quiz.');
          await axios.post("http://localhost:8000/studentRecord/addStudentRecord",{quizID:state?.data?.id,username:account?.username,marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`, timeTaken:`${duration*60}`});
-        navigate("/protected/result",{state:{marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`}})
+         navigate("/protected/result",{state:{marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`}})
       } catch (error) {
         if(error?.response && error?.response?.status===400)
           toast.error(error?.response?.data?.message);
         else
           toast.error(error.message);
+
+        navigate("/protected/home");
       }
   };
 
   return (
-    <div className='quiz-page-container'>
+    <div className='quiz-page-container' >
         
         <div className='quiz-page-left'>
             <div className='question-pointers'>

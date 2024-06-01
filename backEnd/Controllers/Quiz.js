@@ -6,10 +6,10 @@ export const giveQuiz = async(req, res) => {
    try {
       
       let numberOfQuestions = req?.body?.count;
-      console.log(numberOfQuestions)
+      // console.log(numberOfQuestions)
       const topics = req?.body?.topics;
       
-      console.log(topics)
+      // console.log(topics)
       const creatorID = req?.body?.userID;
       const type = "for me";
       const topicWithCount = await Question.aggregate([
@@ -28,11 +28,11 @@ export const giveQuiz = async(req, res) => {
             $sort :{count : 1}
          }
       ]);
-      console.log("topic with the count",topicWithCount);
+      // console.log("topic with the count",topicWithCount);
       const totalQuestionOfRequiredTopic =topicWithCount.reduce((totalRequired,obj)=>{
             return totalRequired+=obj.count;
       },0)
-      console.log("totalQuestionOfRequiredTopic",totalQuestionOfRequiredTopic);
+      // console.log("totalQuestionOfRequiredTopic",totalQuestionOfRequiredTopic);
       let list = new Array(topics.length).fill(Math.floor(numberOfQuestions / topics.length));
       let remains = numberOfQuestions % topics.length;
       let i = list.length -1;
