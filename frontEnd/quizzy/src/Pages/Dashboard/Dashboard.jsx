@@ -73,12 +73,13 @@ const Dashboard = () => {
        <div className="data">
           <div className='data-left'>
             <PieChart
-               colors={['#015D53', '#FFE77AFF']}
+               colors={['#015D53', '#FFE77AFF', '#FBFADA']}
                series={[
                   {
                      data: [
-                        {id:0,value:myRecords?.performance,label:'Right'},
-                        {id:1,value:100-myRecords?.performance,label:'Wrong'},
+                        {id:0,value:myRecords?.performance?.right,label:'Right'},
+                        {id:1,value:myRecords?.performance?.wrong,label:'Wrong'},
+                        {id:2,value:myRecords?.performance?.notAnswered,label:'Not Answered'},
                      ]
                   },
                ]}

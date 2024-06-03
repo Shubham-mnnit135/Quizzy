@@ -15,11 +15,11 @@
 
 .heading{
    width: 90vw;
-   height: 130px;
+   height: 10vw;
    display: flex;
    align-items: center;
    justify-content: center;
-   font-size: 60px;
+   font-size: 5vw;
    font-weight: 500;
    margin-top: 20px;
    background-image: linear-gradient(to top, #09cf89 0%, #f5efef 100%);
@@ -33,13 +33,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 3px solid #015D53;
-    border-radius: 40px;
+    border: 1px solid #015D53;
+    border-radius: 10px;
     margin-top: 20px;
 }
 .userinfo{
     width: 90vw;
-    height: 140px;
+    height: 14vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -58,8 +58,8 @@
     justify-content: center;
     align-items: center;
     > img{
-     height: 80px;
-     width: 80px; 
+     height: 11vw;
+     width: 11vw; 
      border-radius: 50%; 
      object-fit: cover;
      border: 1.5px solid #015D53;
@@ -80,12 +80,12 @@
     gap:5px;
     >h2 {
       color:#015D53;
-      font-size: 30px;
+      font-size: 2.5vw;
     }
     >h3{
       color:#015D53;
       text-transform: lowercase;
-      font-size: 20px;
+      font-size: 2vw;
     }
 }
 .edit-profile-icon{
@@ -95,7 +95,7 @@
     position:absolute;
     bottom:10px;
     right:15px;
-    font-size: 30px;
+    font-size: 2vw;
     color:#015D53;
     cursor: pointer;
 }
@@ -112,7 +112,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 40px;
+    border-radius: 20px;
     margin-top: 10px;
     flex-wrap: wrap;
     gap: 10px;
@@ -126,14 +126,14 @@
     justify-content: center;
     align-items: center;
     background-color: #59a68b69;
-    border-radius: 40px;
+    border-radius: 20px;
     gap:20px;
     border: 2px solid rgba(100, 232, 147, 0.406);
     >h1{
         position: absolute;
         top: 5px;
         left: 10px;
-        font-size: 25px;
+        font-size: 2.5vw;
         font-weight: 650;
         color:#015D53;
     }
@@ -165,11 +165,15 @@
         border-radius: 50%;
         background-color: rgb(255, 254, 254);
     }
+    >h2{
+        font-size: 3.5vw;
+    }
 }
 .data-right .box1{
     background-color: #FFE77AFF;
     color:#015D53;
     >h1{
+        
         background-color: #015D53;
         color:#FFE77AFF;
     }
@@ -178,6 +182,7 @@
     color:#FFE77AFF;
     background-color: #015D53;
     >h1{
+       
         color: #015D53;
         background-color:#FFE77AFF;
     }
@@ -189,25 +194,26 @@
     height: 300px;
     overflow: auto;
     margin-top: 20px;
-    border-radius: 40px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    border: 3px solid #015D53;
+    border: 1px solid #015D53;
     >h1{
         width: 100%;
-        height: 20%;
-        text-align: center;
-        padding-top: 15px;
-        font-size: 25px;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.5vw;
         font-weight: 600px;
         background-color: #FFE77AFF;
         color:#015D53;
     }
     >div{
-        width: 90%;
-        height: 70%;
+        width: 98%;
+        height:85%;
         overflow: auto;
     }
 }
@@ -219,7 +225,7 @@
 
 @media only screen and (min-width:768px) {
     .userinfo{
-        height: 240px;
+        max-height: 230px;
         padding: 0;
     }
     .userinfo .profile{
@@ -236,6 +242,15 @@
         border-left: 2px solid #fff;
         align-items: center;
         gap:15px; 
+        >h2 {
+            color:#015D53;
+            font-size: 2vw;
+          }
+          >h3{
+            color:#015D53;
+            text-transform: lowercase;
+            font-size: 1.5vw;
+          }
     }
     .dash-profile-icon{
         font-size: 200px;
@@ -243,6 +258,7 @@
     }
     .performanceChart{
         height: 350px;
+        border: 2px solid #015D53;
     }
     .data{
         height: 500px;
@@ -258,7 +274,7 @@
         >h1{
             top: 20px;
             left: 20px;
-            font-size: 30px;
+            font-size: 2vw;
             font-weight: 700;
         }
     }
@@ -266,15 +282,30 @@
         height: 100%;
         width: 50%;
     }
-
-    .list-give-quiz, .list-created-quiz{
-        height: 400px;
-        >h1{
-            font-size: 35px;
-            font-weight: 600px;
+    .data-right .box1, .box2{
+        >h2{
+            font-size:2vw;
         }
     }
-    
+
+    .list-give-quiz, .list-created-quiz{
+        border: 2px solid #015D53;
+        height: 400px;
+        >h1{
+            font-size: 2vw;
+            height: 20%;
+            font-weight: 600px;
+        }
+        >div{
+            width: 90%;
+            height: 75%;
+        }
+    }
+    .account-logout-icon{
+        
+        font-size: 2vw;
+        
+    }
     
     
 }

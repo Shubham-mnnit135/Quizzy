@@ -13,9 +13,12 @@ export const addStudentRecord = async(req, res) => {
                 quizID : req?.body?.quizID,
                 marks : req?.body?.marks,
                 totalMarks : req?.body?.totalMarks,
+                right: req?.body?.right,
+                wrong:req?.body?.wrong,
+                notAnswered: req?.body?.notAnswered,
                 timeTaken : `${req?.body?.timeTaken ? req?.body?.timeTaken: 0}`
             }
-            // console.log("record",record);
+            
             await StudentRecord.create(record);
             res.status(200).json({message : "Thanks for the Submission"})
         }
@@ -32,19 +35,26 @@ export const myRecords = async(req,res) =>{
         const studentID = req?.body?.userID;
         const records = await StudentRecord.find({ studentID });
         let marks=0;
+        let right=0;
+        let wrong=0;
+        let notAnswered=0;
         let totalMarks=0;
         const quizPer=[];
         let index=0;
         for(let quiz of records){
-           marks+=quiz.marks;
-           totalMarks+=quiz.totalMarks;
+           marks+=quiz?.marks;
+           right+=quiz?.right;
+           wrong+=quiz?.wrong;
+           notAnswered+=quiz?.notAnswered;
+           totalMarks+=quiz?.totalMarks;
            index++;
-           quizPer.push(Math.ceil((quiz.marks/quiz.totalMarks)*100));
+           quizPer.push(Math.round((quiz.marks/quiz?.totalMarks)*100));
         }
-        // console.log(quizPer);
-        let performance = 0
+        let performance  = {};
         if(totalMarks !== 0){
-            performance = Math.floor((marks/totalMarks)*100);
+            performance.right = Math.round((right/(right+wrong+notAnswered))*100);
+            performance.wrong = Math.round((wrong/(right+wrong+notAnswered))*100);
+            performance.notAnswered = 100 - performance.right - performance.wrong;
         }
         res.status(200).json({success:true,quizs:records,performance:performance,quizPer:quizPer});
     } 

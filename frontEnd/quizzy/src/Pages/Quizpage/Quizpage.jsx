@@ -14,6 +14,8 @@ const Quizpage = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [ansMap, setAnsMap] = useState(new Map());
   const [marks, setMarks] = useState(0);
+  const [rightQ, setRightQ] = useState(0);
+  const [wrongQ, setWrongQ] = useState(0);
   const [duration, setDuration] = useState(0);
   const [marksPerQues, setMarksPerQues] = useState(0);
   const [negMarksPerQues, setNegMarksPerQues] = useState(0);
@@ -60,12 +62,12 @@ const Quizpage = () => {
   const handleSubmit = async() =>{
     try {
       alert('Quiz submitted!');
-      // console.log("time:",elapsedTime);
+      const notAns = questions?.length - rightQ - wrongQ;
       if(duration !== 0){
-        await axios.post("http://localhost:8000/studentRecord/addStudentRecord",{quizID:state?.data?.id,username:account?.username,marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`, timeTaken:`${duration*60 - elapsedTime}`});
+        await axios.post("http://localhost:8000/studentRecord/addStudentRecord",{quizID:state?.data?.id,username:account?.username,marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`, right:rightQ, wrong:wrongQ, notAnswered: notAns,timeTaken:`${duration*60 - elapsedTime}`});
       } 
       else{
-         await axios.post("http://localhost:8000/studentRecord/addStudentRecord",{quizID:state?.data?.id,username:account?.username,marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`});
+         await axios.post("http://localhost:8000/studentRecord/addStudentRecord",{quizID:state?.data?.id,username:account?.username,marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`,right:rightQ, wrong:wrongQ, notAnswered: notAns,});
       }
       navigate("/protected/result",{state:{marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`}})
     } catch (error) {
@@ -82,7 +84,8 @@ const Quizpage = () => {
       
       try {
         alert('Time is up! Submitting your quiz.');
-         await axios.post("http://localhost:8000/studentRecord/addStudentRecord",{quizID:state?.data?.id,username:account?.username,marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`, timeTaken:`${duration*60}`});
+         const notAns = questions?.length - rightQ - wrongQ;
+         await axios.post("http://localhost:8000/studentRecord/addStudentRecord",{quizID:state?.data?.id,username:account?.username,marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`, right:rightQ, wrong:wrongQ, notAnswered: notAns,timeTaken:`${duration*60}`});
          navigate("/protected/result",{state:{marks:marks,totalMarks:`${marksPerQues>0 ? questions?.length*marksPerQues : questions?.length*1}`}})
       } catch (error) {
         if(error?.response && error?.response?.status===400)
@@ -129,6 +132,10 @@ const Quizpage = () => {
              ansMap={ansMap}  
              setAnsMap={setAnsMap} 
              marks={marks} 
+             rightQ={rightQ}
+             setRightQ={setRightQ}
+             wrongQ={wrongQ}
+             setWrongQ={setWrongQ}
              setMarks={setMarks} 
              marksPerQues={marksPerQues} 
              negMarksPerQues={negMarksPerQues}

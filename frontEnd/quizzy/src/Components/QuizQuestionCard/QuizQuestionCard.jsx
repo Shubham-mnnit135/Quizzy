@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./QuizQuestionCard.css"
-const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPerQues, negMarksPerQues}) => {
+const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, rightQ, setRightQ, wrongQ, setWrongQ, setMarks, marksPerQues, negMarksPerQues}) => {
   console.log(quesObj)
   const [valueOfInput,setValueOfInput] = useState('');
   useEffect(()=>{
@@ -13,9 +13,6 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
   const handleOnChnage = (event) => {
       event.preventDefault();
       setValueOfInput(event.target.value);
-      // const newMap = new Map(ansMap);
-      // newMap.set(event.target.name,[event.target.value]);
-      // setAnsMap(newMap);
       handleOnClick(event);
   }
 
@@ -33,13 +30,9 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
   const handleOnClick = (event) => {
     const newMap = new Map(ansMap);
     if(ansMap.has(event?.target?.name)){
-      console.log("marks",marks);
         if(quesObj?.type === 'mrq'){
-           console.log("mrq");
            if(isSame(quesObj.answer,ansMap.get(event.target.name))){
-               console.log("sahi hai");
                if(ansMap.get(event.target.name).includes(event.target.value)){
-                   console.log("include now its wrong");
                    const newArray = ansMap.get(event.target.name);
                    const indexOfValue = newArray.indexOf(event.target.value);
                    if(indexOfValue !== -1){
@@ -49,7 +42,6 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
                    setAnsMap(newMap);
                }
                else{
-                   console.log("exclude not its wrong")
                    const newArray = ansMap.get(event.target.name);
                    newArray.push(event.target.value);
                    newMap.set(event.target.name,newArray);
@@ -61,14 +53,11 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
                else{
                  setMarks(marks-1)
                }
-             
-               console.log("marks",marks);
-               // - neg marks - pos marks
+               setRightQ(rightQ-1);
+               setWrongQ(wrongQ+1);
            }
            else {
-            console.log("wrong hai");
             if(ansMap.get(event.target.name).includes(event.target.value)){
-                console.log("include hai ");
                 const newArray = ansMap.get(event.target.name);
                 const indexOfValue = newArray.indexOf(event.target.value);
                 if(indexOfValue !== -1){
@@ -78,7 +67,6 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
                 setAnsMap(newMap);
             }
             else{
-                console.log("exclude hai");
                 const newArray = ansMap.get(event?.target?.name);
                 newArray.push(event?.target?.value);
                 newMap.set(event?.target?.name,newArray);
@@ -91,33 +79,31 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
                 else{
                   setMarks(marks+1)
                 }
-               // + neg marks + pos marks
-               console.log("now its right",marks);
+               setRightQ(rightQ+1);
+               setWrongQ(wrongQ-1);
             }
-            console.log("marks",marks);
           }
         }
         else{
-          console.log("non mrq");
           if(ansMap.get(event?.target?.name)[0] === quesObj?.answer[0] && !quesObj?.answer?.includes(event?.target?.value)){
-            // -pos - neg
             if(marksPerQues>0){
               setMarks(marks-negMarksPerQues-marksPerQues);
             }
             else{
               setMarks(marks-1)
             }
-            console.log("sahi hai glt ho gya");
+            setRightQ(rightQ-1);
+            setWrongQ(wrongQ+1);
           }
           else if(ansMap.get(event?.target?.name)[0] !== quesObj?.answer[0] && quesObj?.answer.includes(event?.target?.value)){
-            //+ pos+neg
             if(marksPerQues>0){
               setMarks(marks+negMarksPerQues+marksPerQues);
             }
             else{
               setMarks(marks+1)
             }
-            console.log("glt tha sahi ho gya");
+            setRightQ(rightQ+1);
+            setWrongQ(wrongQ-1);
           }
           newMap.set(event?.target?.name,[event?.target?.value]);
           setAnsMap(newMap);
@@ -127,16 +113,13 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
     else{ 
       
       if(quesObj?.type === 'mrq'){
-          console.log("first mrq");
-          console.log("mrks",marks);
-          // - neg
           if(marksPerQues>0){
             setMarks(marks-negMarksPerQues);
           }
+          setWrongQ(wrongQ+1);
           
       }
       else{
-        console.log("first non mrq");
          if(quesObj?.answer?.includes(event?.target?.value)){
           if(marksPerQues>0){
             setMarks(marks+marksPerQues);
@@ -144,14 +127,13 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
           else{
             setMarks(marks+1)
           }
-           // +pos
-           console.log("its right marks",marks);
+           setRightQ(rightQ+1);
          }
          else{
-          // -neg
           if( marksPerQues>0){
             setMarks(marks - negMarksPerQues);
           }
+          setWrongQ(wrongQ+1);
          }
       }
       newMap.set(event?.target?.name,[event?.target?.value]);
@@ -178,22 +160,7 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
                    </div>)
                   })
                 }
-                {/* <div className='option-box'>
-                    <div className='input-button-box'><input type="r" id="op1" name={quesObj?._id} value={quesObj?.options[0]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[0]}/></div>
-                    <div className='label-box'><label htmlFor="op2">{quesObj?.options[0]}</label></div>
-                </div>
-                <div className='option-box'>
-                    <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[1]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[1]}/></div>
-                    <div className='label-box'><label htmlFor="op2"> {quesObj?.options[1]}</label></div>
-                </div>
-                <div className='option-box'>
-                    <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[2]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[2]}/></div>
-                    <div className='label-box'><label htmlFor="op2"> {quesObj?.options[2]}</label></div>
-                </div>
-                <div className='option-box'>
-                    <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[3]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[3]}/></div>
-                    <div className='label-box'><label htmlFor="op2"> {quesObj?.options[3]}</label></div>
-                </div> */}
+                
               </>
             ):
             (
@@ -208,22 +175,7 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
                       </div>)
                     })
                   }
-                  {/* <div className='option-box'>
-                      <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id} value={quesObj?.options[0]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[0]}/></div>
-                      <div className='label-box'><label htmlFor="op2">{quesObj?.options[0]}</label></div>
-                  </div>
-                  <div className='option-box'>
-                      <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[1]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[1]}/></div>
-                      <div className='label-box'><label htmlFor="op2"> {quesObj?.options[1]}</label></div>
-                  </div>
-                  <div className='option-box'>
-                      <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[2]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[2]}/></div>
-                      <div className='label-box'><label htmlFor="op2"> {quesObj?.options[2]}</label></div>
-                  </div>
-                  <div className='option-box'>
-                      <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[3]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[3]}/></div>
-                      <div className='label-box'><label htmlFor="op2"> {quesObj?.options[3]}</label></div>
-                  </div> */}
+                  
                 </>
               ): (
                 quesObj?.type === 'TF' ? (
@@ -237,22 +189,7 @@ const QuizQuestionCard = ({quesObj, ansMap, setAnsMap, marks, setMarks, marksPer
                         </div>)
                       })
                     }
-                    {/* <div className='option-box'>
-                        <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id} value={quesObj?.options[0]} onChange={handleOnClick} checked={handleChecked(option)}/></div>
-                        <div className='label-box'><label htmlFor="op2">{quesObj?.options[0]}</label></div>
-                    </div>
-                    <div className='option-box'>
-                        <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[1]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[1]}/></div>
-                        <div className='label-box'><label htmlFor="op2"> {quesObj?.options[1]}</label></div>
-                    </div>
-                    <div className='option-box'>
-                        <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[2]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[2]}/></div>
-                        <div className='label-box'><label htmlFor="op2"> {quesObj?.options[2]}</label></div>
-                    </div>
-                    <div className='option-box'>
-                        <div className='input-button-box'><input type="radio" id="op1" name={quesObj?._id}  value={quesObj?.options[3]} onChange={handleOnClick} checked={ansMap.get(quesObj?._id)===quesObj?.options[3]}/></div>
-                        <div className='label-box'><label htmlFor="op2"> {quesObj?.options[3]}</label></div>
-                    </div> */}
+                    
                   </>
                 ): (
                   quesObj?.type === 'fill' ? (

@@ -24,6 +24,18 @@ const studentRecordSchema = mongoose.Schema({
     type: Number,
     required: [true, "totalMarks is required"],
   },
+  right: {
+    type: Number,
+    required: [true, "right is required"],
+  },
+  wrong:{
+    type: Number,
+    required: [true, "wrong is required"],
+  },
+  notAnswered: {
+    type: Number,
+    required: [true, "notAnwered is required"],
+  },
   timeTaken : {
     type : Number
   }
