@@ -6,10 +6,8 @@ export const giveQuiz = async(req, res) => {
    try {
       
       let numberOfQuestions = req?.body?.count;
-      // console.log(numberOfQuestions)
       const topics = req?.body?.topics;
       
-      // console.log(topics)
       const creatorID = req?.body?.userID;
       const type = "for me";
       const topicWithCount = await Question.aggregate([
@@ -28,11 +26,9 @@ export const giveQuiz = async(req, res) => {
             $sort :{count : 1}
          }
       ]);
-      // console.log("topic with the count",topicWithCount);
       const totalQuestionOfRequiredTopic =topicWithCount.reduce((totalRequired,obj)=>{
             return totalRequired+=obj.count;
       },0)
-      // console.log("totalQuestionOfRequiredTopic",totalQuestionOfRequiredTopic);
       let list = new Array(topics.length).fill(Math.floor(numberOfQuestions / topics.length));
       let remains = numberOfQuestions % topics.length;
       let i = list.length -1;
@@ -40,11 +36,9 @@ export const giveQuiz = async(req, res) => {
          list[i]++;
          i--;
       }
-      // console.log("list",list);
       let questionsOfQuiz = [] ;
       if(totalQuestionOfRequiredTopic >= numberOfQuestions && topicWithCount.length === topics.length){
             let carry = 0;
-            // console.log("in first if");
             for( let i=0;i<list.length ;i++){
                let size=0;
                if(topicWithCount[i].count < list[i]){
@@ -68,23 +62,18 @@ export const giveQuiz = async(req, res) => {
                   $sample:{ size :size}
                }
                ])
-               // console.log("question from db",questionsFormDb);
                questionsOfQuiz=questionsOfQuiz.concat(questionsFormDb);
             }
-            // console.log("question of quiz", questionsOfQuiz);
             const questionsID = questionsOfQuiz.map((obj)=>{
                return obj._id;
             })
-            // console.log("questiosId" , questionsID);
             const quiz = {
                creatorID : creatorID,
                topics : topics,
                questions :questionsID,
                type: type,
             };
-            // console.log("quiz",quiz);
             const temp = await Quiz.create(quiz);
-            // console.log("new quiz in db",temp);         
             res.status(200).json({quizID:temp._id,questionsOfQuiz:questionsOfQuiz});
       }
       else{
@@ -99,8 +88,6 @@ export const giveQuiz = async(req, res) => {
 export const createQuiz = async(req,res)=>{
    try {
        const { userID , questions, marks, negMarks, startTime, endTime, duration} = req.body;
-      //  console.log(req.body); 
-      //  console.log(questions);
        if (!userID || !questions || !questions.length) {
            throw new Error("Please provide creator_id, topic, and at least one question ID.")
        }
@@ -176,9 +163,13 @@ export const quizById = async(req, res) =>{
             const questionsID = quiz?.questions;
             const questions = await Question.find({ _id : {$in:questionsID}})
             if(questions.length === questionsID.length){
+               const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+               // shuffledQuestions.forEach(question => {
+               //    question.options.sort(() => Math.random() - 0.5);
+               //  });
                const newQuiz = {
                   quizID : quizID,
-                  questions:questions,
+                  questions:shuffledQuestions,
                   duration: 0,
                   marks: 0,
                   negMarks: 0
@@ -193,7 +184,6 @@ export const quizById = async(req, res) =>{
                if(quiz?.negMarks){
                   newQuiz.negMarks = parseFloat(quiz?.negMarks?.toString());
                }
-               // console.log("new quiz",newQuiz);
                res.status(200).json({success:true,newQuiz: newQuiz});
             }
             else{

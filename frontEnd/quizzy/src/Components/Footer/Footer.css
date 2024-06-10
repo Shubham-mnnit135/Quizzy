@@ -6,11 +6,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap : 2rem;
+    gap : 15px;
 }
 
 .icons{
-    font-size: 2rem;
+    font-size: 15px;
     color: #015D53;
     cursor: pointer;
+}
+
+@media only screen and (min-width: 768px){
+    .footer {
+        height: 10vh;
+        min-height: 50px;
+        width: 100vw;
+        background-color:  #09cf86;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap : 2rem;
+    }
+    
+    .icons{
+        font-size: 2rem;
+        color: #015D53;
+        cursor: pointer;
+    }
 }

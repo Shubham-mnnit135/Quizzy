@@ -8,7 +8,7 @@ import { MdLogout } from "react-icons/md";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const {account} = useContext(userContext);
+  const {account,setAccount} = useContext(userContext);
   let [openMenu, setOpenMenu] = useState(false);
   return (
     <nav className="nav">
@@ -43,6 +43,7 @@ const Navbar = () => {
                     <Link to='/protected/dashboard'>Dashboard</Link>
                     <Link className="btn" to="/login" onClick={()=>{
                       localStorage.removeItem('token');
+                      setAccount(null);
                     }}>Sign Out</Link>
                   </>
                 ) : (

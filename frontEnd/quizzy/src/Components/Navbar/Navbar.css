@@ -13,9 +13,8 @@
 }
 
 .logo{
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 700;
-    /* color: #6e6e70; */
     color:#015D53;
     cursor: pointer;
     margin-left: 10px;
@@ -27,7 +26,7 @@
     color: #015D53;
 }
 .menu{
-    font-size: 30px;
+    font-size: 25px;
     color:#015D53;
     margin-right: 10px;
 }
@@ -116,6 +115,9 @@
         border-radius: 40px;
         padding: 5px;
     } 
+    .logo{
+        font-size: 25px;
+    }
     
     .navList .btn:hover {
         color:white;

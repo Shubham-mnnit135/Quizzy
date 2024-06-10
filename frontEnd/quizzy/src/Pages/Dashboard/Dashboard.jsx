@@ -54,6 +54,7 @@ const Dashboard = () => {
                 <TbLogout className='account-logout-icon' 
                 onClick={()=>{
                   localStorage.removeItem('token');
+                  setAccount(null);
                   navigate('/login');
                 }}/>
            </div>

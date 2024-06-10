@@ -32,31 +32,7 @@
        outline: none;
     }
 }
-/* .uploadbutton{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-}
 
-.signup-left .uploadIcon{
-     color:#015D53;
-     height: 40px;
-     width:40px;
-}
-#profile{
-    width:0;
-    height: 0;
-}
-.signup-left button{
-    width:20%;
-    height: 35px;
-    border:none;
-    cursor: pointer;
-    border-radius: 40px;
-    font-size: 25px;
-    color:#015D53;
-    background-color:#09cf89 ;
-} */
 
 .signup-right{
     height: 100%;
@@ -69,7 +45,7 @@
 
 .signup-right .form{
     height: 60%;
-    width: 80%;
+    width: 100%;
     display:flex;
     flex-direction: column;
     justify-content:center; 
@@ -77,23 +53,15 @@
     gap: 10px; 
 }
 
-@media screen and (min-width:768px){
-    .signup-right{ 
-        width: 50%;
-    }
-    
-    .signup-right .form{
-        width: 60%; 
-    }
-}
+
 .inputFeild{
-    width: 70%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     gap:5px;
 }
 .signup .signup-right label{
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 600;
     color:#015D53;
 }
@@ -111,12 +79,12 @@
 }
 
 .signup-right .signup{
-    width:70%;
+    width:80%;
     height: 35px;
     border:none;
     cursor: pointer;
     border-radius: 40px;
-    font-size: 25px;
+    font-size: 20px;
     color:#015D53;
     background-color:#09cf89;
 }
@@ -124,4 +92,29 @@
 .signup-right .signup:hover{
     color:rgb(240, 239, 239);
     background-color: #015D53;
+}
+@media screen and (min-width:768px){
+    .signup-right{ 
+        width: 50%;
+    }
+    .signup .signup-right label{
+        font-size: 25px;
+        
+    }
+    
+    .signup-right .form{
+        width: 60%; 
+    }
+    .inputFeild{
+        width: 70%;
+        
+    }
+    .signup-right .signup{
+        width:70%;
+        font-size: 25px;
+        
+    }
+    .signup-right .form{
+        width: 80%;
+    }
 }
