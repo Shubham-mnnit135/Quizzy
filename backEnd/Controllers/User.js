@@ -1,7 +1,10 @@
 import User from '../Models/User.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
-import { uploadOnCloudinary } from '../utils.js';
+import { uploadOnCloudinary } from '../Utils/Cloudinary.js';
+import { sendMail } from '../Utils/sendMail.js';
+import { HtmlContentForRegistration } from '../Utils/MailForRegistration.js';
+
 
 export const Signup = async(req, res)=>{
     try {
@@ -21,6 +24,7 @@ export const Signup = async(req, res)=>{
         email : req.body.email,
         password : hashPassword,
        });
+       sendMail(req?.body?.email,"Quizzy for Quiz","",HtmlContentForRegistration(req?.body?.username));
        res.status(200).json({message : "You have registered Successfully"});
     } catch (error) {
         res.status(400).json({success : false, message : error.message});
@@ -37,11 +41,11 @@ export const Signin = async(req, res) =>{
         if(user){
             const match = await bcrypt.compare(password, user.password);
             if(match){
-                 const token = jwt.sign({userID : user._id},process.env.TOKEN_SECRET,{expiresIn : "1d"});
+                 const token = jwt.sign({userID : user._id,email :email},process.env.TOKEN_SECRET,{expiresIn : "1d"});
                  const userInfo = {
-                    username : user.username,
-                    email : user.email,
-                    picture : user.picture,
+                    username : user?.username,
+                    email : user?.email,
+                    picture : user?.picture,
                     token : token,
                  }
                  res.status(200).json(userInfo);
@@ -66,7 +70,7 @@ export const Upload = async(req, res) => {
         const {email} = req.body;
         const user = await User.findOneAndUpdate(
             { email: email },
-            { $set: { picture: result.url } },
+            { $set: { picture: result?.url } },
             { new: true } 
           );
         res.status(200).json({success:true,url:user.picture});

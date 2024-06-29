@@ -13,8 +13,7 @@ export const addQuestion = async(req, res) =>{
                 answer : req?.body?.answer,
                 creatorID : req?.body?.userID 
             }
-            console.log(question);
-            // await Question.create(question);
+            await Question.create(question);
             res.status(200).json({message: "succussfully added"});
         }
         else{

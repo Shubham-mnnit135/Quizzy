@@ -1,6 +1,9 @@
 import Quiz from "../Models/Quiz.js";
 import Question from "../Models/Question.js";
 import StudentRecord from "../Models/StudentRecord.js";
+import { sendMail } from "../Utils/sendMail.js";
+import { HtmlContentForQuizCreation } from "../Utils/MailForQuizCreation.js";
+
 
 export const giveQuiz = async(req, res) => {
    try {
@@ -87,7 +90,7 @@ export const giveQuiz = async(req, res) => {
 
 export const createQuiz = async(req,res)=>{
    try {
-       const { userID , questions, marks, negMarks, startTime, endTime, duration} = req.body;
+       const { userID, email, questions, marks, negMarks, startTime, endTime, duration} = req.body;
        if (!userID || !questions || !questions.length) {
            throw new Error("Please provide creator_id, topic, and at least one question ID.")
        }
@@ -112,8 +115,10 @@ export const createQuiz = async(req,res)=>{
                marks,
                negMarks
        })
-      //  console.log("new Quiz",newQuiz);
        const savedQuiz = await newQuiz.save();
+       
+
+       sendMail(email,"Quizzy for quiz","",HtmlContentForQuizCreation(savedQuiz?._id));
        res.status(200).json({success:true,quizID: savedQuiz._id});
    } catch (error) {
        res.status(400).json({ success: false, message: error.message});

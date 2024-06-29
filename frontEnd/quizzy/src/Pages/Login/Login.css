@@ -28,7 +28,7 @@
     flex-direction: column;
     justify-content:center; 
     align-items: center;
-    gap: 5px; 
+    gap: 10px; 
 }
 
 .inputFeild{
@@ -38,31 +38,37 @@
     gap:5px;
 }
 .login label{
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
     color:#015D53;
 }
+.login-password-input{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.9px solid #015D53;
+}
+
 .login input{
+   width: 80%;
    outline: none;
    height: 25px;
-   font-size: 20px;
+   font-size: 15px;
    font-weight: 500;
    color: #015D53;
    border: none;
-   border-bottom: 1.9px solid #015D53;
 }
 .login input::placeholder{
     color:#60938085;
 }
 
 .signin{
-    margin-top: 20px;
     width:80%;
-    height: 35px;
+    height: 25px;
     border:none;
     cursor: pointer;
     border-radius: 40px;
-    font-size: 20px;
+    font-size: 15px;
     color:#015D53;
     background-color: #09cf89;
 }
@@ -70,7 +76,11 @@
     color:rgb(240, 239, 239);
     background-color: #015D53;
 }
-
+.icon-for-show-password{
+    width: 10%;
+    font-size: 15px;
+    color:#015D53;
+}
 @media  screen and (min-width:768px) {
     .login-left{
         width: 50%;
@@ -97,10 +107,17 @@
         font-size: 25px;
     }
     .login input{
+
         height: 25px;
+        font-size: 20px;
      }
     .signin{
         margin-top: 25px;
         width:70%;
+        height: 35px;
+        font-size: 25px;
+    }
+    .icon-for-show-password{
+        font-size: 20px;
     }
 }

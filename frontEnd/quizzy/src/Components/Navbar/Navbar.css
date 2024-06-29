@@ -3,7 +3,7 @@
 }
 .nav{
     height: 10vh;
-    min-height: 55px;
+    min-height: 50px;
     width: 100vw;
     background-color: #09cf86;
     display: flex;

@@ -1,7 +1,7 @@
 import express from 'express';
 import { createQuiz, giveQuiz, myQuizzes, quizById } from '../Controllers/Quiz.js';
-import { verifyToken } from '../utils.js';
 import { quizResult } from '../Controllers/Quiz.js';
+import { verifyToken } from '../Middlewares/Authentication.js';
 
 const router = express.Router();
 

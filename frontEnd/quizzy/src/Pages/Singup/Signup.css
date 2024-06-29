@@ -11,28 +11,6 @@
 .signup-left img{
     display: none;
 }
-@media screen and (min-width:768px) {
-    .signup-left{
-        display: block;
-        height: 100%;
-        width: 50%;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-    
-    
-    .signup-left img{
-       display: block;
-       height: 100%;
-       width: 100%;
-       cursor: pointer;
-       border: none;
-       outline: none;
-    }
-}
-
 
 .signup-right{
     height: 100%;
@@ -40,7 +18,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left :  1.2px  solid #09cf89;
 }
 
 .signup-right .form{
@@ -60,19 +37,27 @@
     flex-direction: column;
     gap:5px;
 }
+
 .signup .signup-right label{
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
     color:#015D53;
 }
+.input-for-signup{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.2px solid #015D53;
+}
 .signup .signup-right input{
+   width: 80%;
    border: none;
    outline: none;
    height: 25px;
-   font-size: 20px;
+   font-size: 15px;
    font-weight: 500;
    color: #015D53;
-   border-bottom: 1.9px solid #015D53;
+   
 }
 .signup-right input::placeholder{
     color:#60938085;
@@ -80,11 +65,11 @@
 
 .signup-right .signup{
     width:80%;
-    height: 35px;
+    height: 25px;
     border:none;
     cursor: pointer;
     border-radius: 40px;
-    font-size: 20px;
+    font-size: 15px;
     color:#015D53;
     background-color:#09cf89;
 }
@@ -93,14 +78,42 @@
     color:rgb(240, 239, 239);
     background-color: #015D53;
 }
+.show-pass-icon{
+    font-size: 15px;
+    width: 10%;
+    color:#015D53;
+}
 @media screen and (min-width:768px){
+    .signup-left{
+        display: block;
+        height: 100%;
+        width: 50%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    
+    .signup-left img{
+       display: block;
+       height: 100%;
+       width: 100%;
+       cursor: pointer;
+       border: none;
+       outline: none;
+    }
     .signup-right{ 
         width: 50%;
+        border-left :  1.2px  solid #09cf89;
     }
     .signup .signup-right label{
         font-size: 25px;
         
     }
+    .signup .signup-right input{
+        font-size: 20px;
+     }
     
     .signup-right .form{
         width: 60%; 
@@ -111,10 +124,14 @@
     }
     .signup-right .signup{
         width:70%;
+        height: 35px;
         font-size: 25px;
         
     }
     .signup-right .form{
         width: 80%;
+    }
+    .show-pass-icon{
+        font-size: 20px;
     }
 }

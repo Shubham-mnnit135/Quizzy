@@ -3,6 +3,7 @@ import axios from "axios";
 import "./Login.css";
 import { userContext } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -11,7 +12,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  
+  const [showLoginPass,setShowLoginPass] = useState(false);
   const navigate = useNavigate();
   const {account, setAccount} = useContext(userContext)
   const handleOnChange = (event) => {
@@ -48,11 +49,24 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="form">
           <div className="inputFeild">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="xyz@gmail.com" name="email" value={userCredetial.email} onChange={handleOnChange}/>
+            <div className="login-password-input">
+              <input type="email" id="email" placeholder="xyz@gmail.com" name="email" value={userCredetial.email} onChange={handleOnChange}/>
+            </div>
+            
           </div>
           <div className="inputFeild">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" placeholder="******" name="password" value={userCredetial.password} onChange={handleOnChange}/>
+            <div className="login-password-input">
+              <input type={showLoginPass===false?'password':'text'} id="password" placeholder="******" name="password" value={userCredetial.password} onChange={handleOnChange}/>
+              {
+                 showLoginPass === true ?(
+                  <IoIosEye onClick={()=>{setShowLoginPass(!showLoginPass)}} className="icon-for-show-password"/>
+                 ):(
+                  <IoIosEyeOff onClick={()=>{setShowLoginPass(!showLoginPass)}} className="icon-for-show-password"/>
+                 )
+              }
+            </div>
+            
           </div>
           <button className="signin" type="submit">Sign in</button>
         </form>

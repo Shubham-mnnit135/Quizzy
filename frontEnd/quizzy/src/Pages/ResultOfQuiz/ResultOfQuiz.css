@@ -1,9 +1,11 @@
 .result-list-container{
     height: 80vh;
+    min-height: 500px;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     background-color: rgb(221, 243, 221);
 }
 
@@ -46,8 +48,23 @@
     height: 90%;
     overflow: auto;
 }
+.download-pdf-button{
+    position: absolute;
+    top: 5px;
+    font-size: 13px;
+    color:#ffffff;
+    background-color: #015D53;
+    border:none;
+    padding: 0 10px;
+    height: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.sorting-button{
+    cursor: pointer;
+}
 
-@media screen and (min-width:768px) {
+@media only screen and (min-width:768px) {
     .result-list-box{
         width: 95%;
         border: 2px solid #015D53;
@@ -58,5 +75,22 @@
             font-size: 20px;
         }
     }
-    
+    .download-pdf-button{
+        font-size: 15px;
+        height: 18px;
+    }
+}
+
+@media only screen and (max-width:350px){
+    .list-box-header-item{
+        
+        >h3{
+            font-size: 10px;
+            
+        }
+    }
+    .download-pdf-button{
+        font-size: 10px;
+        height: 15px;
+    }
 }

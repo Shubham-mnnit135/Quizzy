@@ -1,5 +1,6 @@
 import StudentRecord from "../Models/StudentRecord.js";
-
+import { HtmlContentForQuizSubmission } from "../Utils/MailForQuizSubmission.js";
+import { sendMail } from "../Utils/sendMail.js";
 export const addStudentRecord = async(req, res) => {
     try{
         const record = await StudentRecord.findOne({studentID: req?.body?.userID, quizID:req?.body?.quizID});
@@ -20,6 +21,7 @@ export const addStudentRecord = async(req, res) => {
             }
             
             await StudentRecord.create(record);
+            sendMail(req?.body?.email,"Quizzy for Quiz","",HtmlContentForQuizSubmission(record.username, record.quizID, record.marks, record.totalMarks, record.timeTaken, record.right, record.wrong, record.notAnswered));
             res.status(200).json({message : "Thanks for the Submission"})
         }
         
@@ -66,7 +68,6 @@ export const myRecords = async(req,res) =>{
 export const resultOfQuiz = async(req,res) => {
       try {
         const list = await StudentRecord.find({ quizID: req?.body?.quizID });
-        // console.log("Retrieved records:", list);
         res.status(200).json({success:true,list:list});
       } catch (error) {
         res.status(400).json({success:false,message:error.message});

@@ -48,9 +48,7 @@ const CreateQuiz = () => {
 
     const handleOnClick = async() =>{
         try {
-            // const res = await axios.post("http://localhost:8000/quiz/createQuiz",{questionIds:selectedQuestions});
             const data = {questionIds:selectedQuestions};
-            // navigate('/protected/quiz-ID',{replace:true,state:{data}});
             navigate('/protected/quiz-attributes',{state:{data}});
         } catch (error) {
             if(error?.response && error?.response?.status===400)

@@ -31,3 +31,10 @@
         }
     }
 }
+@media screen and (max-width:350px){
+    .result-list-item .items{
+        >h3{
+            font-size: 10px;
+        }
+    }
+}
