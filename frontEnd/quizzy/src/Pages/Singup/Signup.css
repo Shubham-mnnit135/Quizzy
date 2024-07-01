@@ -49,6 +49,7 @@
     align-items: center;
     border-bottom: 1.2px solid #015D53;
 }
+
 .signup .signup-right input{
    width: 80%;
    border: none;
@@ -59,9 +60,28 @@
    color: #015D53;
    
 }
+.resend{
+    border:none;
+    cursor: pointer;
+    font-size: 15px;
+    color:#015D53;
+    background-color: #ffffff;
+}
 .signup-right input::placeholder{
     color:#60938085;
 }
+.signup-right input::selection {
+    background-color: #ffffff; 
+    color: #015D53; 
+  }
+
+  /* Target Chrome autofill */
+  .signup-right input:-webkit-autofill {
+    background-color: #ffffff !important;
+    color: #015D53 !important;
+    -webkit-text-fill-color: #015D53 !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 
 .signup-right .signup{
     width:80%;
@@ -133,5 +153,8 @@
     }
     .show-pass-icon{
         font-size: 20px;
+    }
+    .resend{
+        font-size: 25px;
     }
 }

@@ -9,16 +9,48 @@ import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 const Signup = () => {
   const [userInfo, setUserInfo] = useState({"username":"","email":"","password":""});
   const [showSignupPass,setShowSignupPass] = useState(false);
-
+  const [otp, setOtp] = useState(false);
   const navigate = useNavigate();
+
+  const handleResend = async(event) =>{
+     event.preventDefault();
+     try {
+      if(userInfo.username !=="" && userInfo.email !=="" ){
+         if(userInfo?.password.length >= 8){
+                const res = await axios.post('http://localhost:8000/user/otpVerify',userInfo);
+                console.log("res",res);
+                toast.success(res?.data?.message);
+                userInfo.otp = "";
+                setOtp(true);
+         }
+         else{
+            toast.error("Password should be at least 8 characters long")
+         }
+      }
+      else{
+         toast.error("Both username and email are required")
+      }
+     } catch (error) {
+      if(error?.response && error?.response?.status===400)
+         toast.error(error?.response?.data?.message);
+      else
+         toast.error(error.message);
+     }
+  }
+
   const handleSubmit = async(event)=>{
          event.preventDefault();
          try {
             if(userInfo.username !=="" && userInfo.email !=="" ){
                if(userInfo?.password.length >= 8){
-                  const res = await axios.post('http://localhost:8000/user/signup', userInfo);
-                  toast.success("Registration Successful!");
-                  navigate('/login');
+                  if(userInfo.otp !==''){
+                     await axios.post('http://localhost:8000/user/signup', userInfo);
+                     toast.success("Registration Successful!");
+                     navigate('/login');
+                  }
+                  else{
+                     toast.error('Please enter OTP');
+                  }
                }
                else{
                   toast.error("Password should be at least 8 characters long")
@@ -47,9 +79,6 @@ const Signup = () => {
     <div className="signup">
        
        <div className='signup-left'>
-         {/* <label htmlFor="profile"><img src="./signup_page.svg" alt="user-profile"/></label>
-         <input type="file" id="profile" onChange={handleSelect}/>
-         <button onClick={handleUpload} className='uploadbutton'> <MdOutlineCloudUpload className='uploadIcon' /> </button> */}
          <img src="./signup_page.svg" alt="user-profile"/>
        </div>
        
@@ -80,7 +109,26 @@ const Signup = () => {
                     }
                 </div>
              </div>
-             <button type="submit" className='signup'>Sign Up</button>
+             {
+               otp === false ? (
+                  <></>
+               ): (
+                  <div className="inputFeild">
+                     <label htmlFor="otp">OTP</label>
+                     <div className='input-for-signup'>
+                        <input type="text" id="otp" placeholder='123456' name="otp" value={userInfo?.otp} onChange={handleOnChange}/>
+                        <button onClick={handleResend}  className='resend'>Resend</button>
+                     </div>
+                  </div>
+               )
+             }
+             {
+               otp === false? (
+                  <button onClick={handleResend} className='signup'>Next</button>
+               ):(
+                  <button type="submit" className='signup'>Sign Up</button>
+               )
+             }
           </form>
        </div>
     </div>

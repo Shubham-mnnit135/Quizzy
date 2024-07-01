@@ -27,8 +27,8 @@ const Login = () => {
       try {
         if(userCredetial.email !=="" && userCredetial.password !==""){
           const userInfo = await axios.post('http://localhost:8000/user/signin', userCredetial);
-          setAccount(userInfo.data);
-          localStorage.setItem('token', userInfo.data.token); // new added line
+          setAccount(userInfo?.data);
+          localStorage.setItem('token', userInfo?.data?.token); // new added line
           navigate('/protected/home');
         }
         else{

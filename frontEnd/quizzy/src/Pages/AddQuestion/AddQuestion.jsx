@@ -43,7 +43,7 @@ const AddQuestion = () => {
           questionContent.type = 'mcq';
         }
         const res = await axios.post("http://localhost:8000/question/addQuestion",questionContent);
-        toast.success("You Question Successfully added")
+        toast.success("Your Question Successfully added")
         navigate("/protected/home");
       }
       else{

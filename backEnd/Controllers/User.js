@@ -1,31 +1,74 @@
 import User from '../Models/User.js'
+import Otp from '../Models/Otp.js';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import { uploadOnCloudinary } from '../Utils/Cloudinary.js';
 import { sendMail } from '../Utils/sendMail.js';
 import { HtmlContentForRegistration } from '../Utils/MailForRegistration.js';
+import crypto from "crypto";
+import { HtmlContentForVerification } from '../Utils/MailForOtpVerification.js';
+
+
+export const otpVerify = async(req, res) => {
+    try {
+        const check1 = await User.findOne({email : req?.body?.email});
+        const check2 = await User.findOne({username : req?.body?.username});
+        if( check1 ){
+            throw new Error("Email is already exist")
+        }
+        if( check2 ){
+            throw new Error("Username is already exist")
+        }
+        const generateOtp = () =>{
+            return crypto.randomInt(100000, 999999).toString();
+        }
+        const otp = generateOtp();
+        const check = await Otp.findOne({email:req?.body?.email});
+        if(check){
+           const data = await Otp.findOneAndUpdate({email:req?.body?.email},{$set:{otp:otp,otpExpires: new Date(Date.now()+ 10*60*1000)}},{new:true});
+           console.log("data1",data);
+        }
+        else{
+            const data = await Otp.create({
+                email : req?.body?.email,
+                otp:otp,
+                otpExpires: new Date(Date.now()+ 2*60*1000),
+            });
+            console.log("data2",data);
+        }
+        
+        sendMail(req?.body?.email,"Quizzy for Quiz","",HtmlContentForVerification(otp));
+        res.status(200).json({message : "OTP has been sent on your email"});
+    } catch (error) {
+        res.status(400).json({success:false,message:error.message});
+    }
+}
 
 
 export const Signup = async(req, res)=>{
     try {
-       const check1 = await User.findOne({email : req.body.email});
-       const check2 = await User.findOne({username : req.body.username});
-       if( check1 ){
-          throw new Error("Email is already exist")
+       const OtpFromDB = await Otp.findOne({email: req?.body?.email});
+       if(OtpFromDB){
+          if(req?.body?.otp === OtpFromDB?.otp){
+            const password = req?.body?.password;
+            const hashPassword = await bcrypt.hash(password,10);
+     
+            const user = await User.create({
+             username : req?.body?.username,
+             email : req?.body?.email,
+             password : hashPassword,
+            });
+            sendMail(req?.body?.email,"Quizzy for Quiz","",HtmlContentForRegistration(req?.body?.username));
+            res.status(200).json({message : "You have registered Successfully"});
+          }
+          else{
+            throw new Error("Your OTP is Invalid. Try Again")
+          }
        }
-       if( check2 ){
-          throw new Error("Username is already exist")
+       else{
+         throw new Error("You are late. Please Try Again")
        }
-       const password = req?.body?.password;
-       const hashPassword = await bcrypt.hash(password,10);
-
-       const user = await User.create({
-        username : req.body.username,
-        email : req.body.email,
-        password : hashPassword,
-       });
-       sendMail(req?.body?.email,"Quizzy for Quiz","",HtmlContentForRegistration(req?.body?.username));
-       res.status(200).json({message : "You have registered Successfully"});
+       
     } catch (error) {
         res.status(400).json({success : false, message : error.message});
     }

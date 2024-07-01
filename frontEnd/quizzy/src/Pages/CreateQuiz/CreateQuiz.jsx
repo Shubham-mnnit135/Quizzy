@@ -26,12 +26,10 @@ const CreateQuiz = () => {
                 setFilteredQuestion(res?.data?.allQuestion)
                 setTopics(res?.data?.topics)
             } catch (error) {
-                if(error.response && error.response.status === 400){
-                    console.log(error.response.data.message);
-                }
-                else{
-                    console.log(error.message);
-                }
+                if(error?.response && error?.response?.status===400)
+                    toast.error(error?.response?.data?.message);
+                else
+                    toast.error(error.message);
             }
         }
         fetch();

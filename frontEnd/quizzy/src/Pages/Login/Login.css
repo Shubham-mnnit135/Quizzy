@@ -62,6 +62,18 @@
     color:#60938085;
 }
 
+.login input::selection {
+    background-color: #ffffff; 
+    color: #015D53; 
+  }
+
+  /* Target Chrome autofill */
+  .login input:-webkit-autofill {
+    background-color: #ffffff !important;
+    color: #015D53 !important;
+    -webkit-text-fill-color: #015D53 !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 .signin{
     width:80%;
     height: 25px;
